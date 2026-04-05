@@ -1,13 +1,19 @@
-// import { Provider } from "react-redux"
-import Counter from "./Counter"
-// import { store } from "./store"
+import { Provider } from "react-redux"
+import { store } from "./store"
+// import { Posts } from "./Posts"
+import ToolkitTodoApp from "./reduxToolkit/ToolkitTodoApp"
+// import TodoApp from "./todos/TodoApp"
+
 
 function App() {
 
   return ( 
-  // <Provider store={store} >
-    < Counter />
-  // </Provider>
+  
+    // < Posts />
+    // <TodoApp/>
+    <Provider store={store} >
+      <ToolkitTodoApp/>
+    </Provider>
   )
 }
 
