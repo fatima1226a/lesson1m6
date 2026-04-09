@@ -8,6 +8,8 @@ import { addTodo } from "./todoSlice"
 const ToolkitTodoApp = () => {
 
   const dispatch = useDispatch()
+
+  const [filter, setFilter] = useState("all")
   
   const [text, setText] = useState("")
 
@@ -19,6 +21,13 @@ const ToolkitTodoApp = () => {
     setText("")
   }
 
+
+  const filteredTodos = todos.filter ((t) => 
+    {
+      if (filter === "active") return !t.done
+      if (filter === "done") return t.done
+      return true
+    })
   
 
   return (
@@ -36,11 +45,13 @@ const ToolkitTodoApp = () => {
           {todos.length === 0 && (
             <p>Список пуст...</p>
           )}
-          {todos.map((t) => (
+          {filteredTodos.map((t) => (
             <ToolkitTodoItem key={t.id} todo={t} />
           ))}
         </div>
-        
+        <button onClick={() => setFilter("all")} >Все</button>
+        <button onClick={() => setFilter("active")} >Активные</button>
+        <button onClick={() => setFilter("done")} >Выполненные</button>
     </div>
   )
 }

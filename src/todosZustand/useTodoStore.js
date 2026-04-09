@@ -17,5 +17,10 @@ export const useTodoStore = create((set) => ({
     remove: (id) => 
         set((state) => ({
             todos: state.todos.filter((t) => t.id !== id)
+        })),
+    editTodo: ({id, text}) => 
+        set((state) => ({
+            todos: state.todos.map((t) => t.id === id ? {...t, text} : t)
         }))
 }))
+

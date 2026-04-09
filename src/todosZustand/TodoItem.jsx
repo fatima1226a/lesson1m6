@@ -1,30 +1,31 @@
-import { useDispatch } from "react-redux"
-import { remove, toggle, editTodo } from "./todoSlice"
 import { useState } from "react"
+import { useTodoStore } from "./useTodoStore"
 
 
 
 
-const ToolkitTodoItem = ({todo}) => {
 
-  const dispatch = useDispatch()
+const TodoItem = ({todo}) => {
 
+  const { toggle, remove, editTodo } = useTodoStore()
+  
   const [isEditing, setIsEditing] = useState(false)
   const [newText, setNewText] = useState(todo.text)
 
   const handleSave = () => {
     if(!newText.trim()) return 
-    dispatch(editTodo({id: todo.id, text: newText}))
+    editTodo({id: todo.id, text: newText})
     setIsEditing(false)
   }
 
   return (
     <div>
-        <h2>ToolkitTodoItem</h2>
+        <h2>TodoItem</h2>
         <input 
-          type="checkbox" 
-          checked={todo.done} 
-          onChange={() => dispatch(toggle(todo.id))} />
+            type="checkbox" 
+            checked={todo.done}
+            onChange={() => toggle(todo.id)}
+        />
         {isEditing ? (
           <input 
             type="text" 
@@ -35,11 +36,11 @@ const ToolkitTodoItem = ({todo}) => {
           /> 
         ) : (
           <span onDoubleClick={() => setIsEditing(true)} >{todo.text}</span>
-        )
-        }
-        <button onClick={() => dispatch(remove(todo.id))} >X</button>
+        )}
+        {/* <span>{todo.text}</span> */}
+        <button onClick={() => remove(todo.id)}>X</button>
     </div>
   )
 }
 
-export default ToolkitTodoItem
+export default TodoItem
